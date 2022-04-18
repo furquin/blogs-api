@@ -33,7 +33,18 @@ const login = async (req, res, next) => {
     }
 };
 
+const getAllUsers = async (req, res, next) => {
+    try {
+        const allUsers = await serviceUser.getAllUsers();
+        
+        return res.status(200).json(allUsers);
+    } catch (e) {
+        next(e);
+    }
+};
+
 module.exports = {
     createNewUser,
     login,
+    getAllUsers,
 };
