@@ -1,5 +1,5 @@
 const express = require('express');
-const { createNewUser, getAllUsers, getUserById } = require('../controllers/User');
+const { createNewUser, getAllUsers, getUserById } = require('../controllers/user');
 const {
     validDisplayName,
     validEmail,

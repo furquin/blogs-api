@@ -1,5 +1,5 @@
 const express = require('express');
-const { login } = require('../controllers/User');
+const { login } = require('../controllers/user');
 const {
     validEmail,
     validPassword,
