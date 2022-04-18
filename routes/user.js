@@ -11,6 +11,6 @@ const routes = express.Router();
 
 routes
     .route('/')
-    .post(validDisplayName, validEmail, checkEmailExists, validPassword, createNewUser);
+    .post(validDisplayName, validEmail, validPassword, checkEmailExists, createNewUser);
 
 module.exports = routes;

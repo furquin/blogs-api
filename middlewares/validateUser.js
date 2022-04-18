@@ -1,4 +1,5 @@
-const { emailExists } = require('../services/user');
+/* eslint-disable quotes */
+const { emailExists, login } = require('../services/user');
 
 const validDisplayName = (req, res, next) => {
     const { displayName } = req.body;
@@ -7,7 +8,7 @@ const validDisplayName = (req, res, next) => {
         if (displayName.length < 8) {
             return res
                 .status(400)
-                .json({ message: '\'displayName\'  length must be ate least 8 characters long' });
+                .json({ message: "\"displayName\" length must be at least 8 characters long" });
         }
         next();
     } catch (e) {
@@ -21,12 +22,16 @@ const validEmail = (req, res, next) => {
     try {
         const validateEmail = /^([a-zA-z0-9]+)@([a-zA-Z]+)\.([a-zA-Z]){2,8}$/;
 
+        if (email === "") {
+            return res.status(400).json({ message: "\"email\" is not allowed to be empty" });
+        }
+
         if (!email) {
-            return res.status(400).json({ message: '\'email\'is required' });
+            return res.status(400).json({ message: "\"email\" is required" });
         }
         
         if (validateEmail.test(email) === false) {
-            return res.status(400).json({ message: '\'email\' must be a valid email' });
+            return res.status(400).json({ message: "\"email\" must be a valid email" });
         }
 
         next();
@@ -38,9 +43,9 @@ const validEmail = (req, res, next) => {
 const checkEmailExists = async (req, res, next) => {
     const { email } = req.body;
     try {
-    const exists = await emailExists(email);
+        const exist = await emailExists(email);
 
-    if (exists) {
+    if (exist !== null) {
          return res.status(409).json({ message: 'User already registered' });
     }
         next();
@@ -53,13 +58,32 @@ const validPassword = (req, res, next) => {
     const { password } = req.body;
 
     try {
-    if (password.length < 6) {
-        return res.status(400).json({ message: '\'password\' length must be 6 characters long' });
-    }
+    if (password === "") {
+            return res.status(400).json({ message: "\"password\" is not allowed to be empty" });
+        }    
+        
     if (!password) {
-        return res.status(400).json({ message: '\'password\' is required' });
+            return res.status(400).json({ message: "\"password\" is required" });
+    }
+        
+    if (password.length < 6) {
+        return res.status(400).json({ message: "\"password\" length must be 6 characters long" });
     }
          
+        next();
+    } catch (e) {
+        next(e);
+    }
+};
+
+const validLogin = async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+        const userLogin = await login(email, password);
+
+        if (!userLogin) {
+            return res.status(400).json({ message: "Invalid fields" });
+        }
         next();
     } catch (e) {
         next(e);
@@ -71,4 +95,5 @@ module.exports = {
     validEmail,
     checkEmailExists,
     validPassword,
+    validLogin,
 };
