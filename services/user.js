@@ -12,7 +12,14 @@ const emailExists = async (email) => {
     return exists;
 };
 
+const login = async (email, password) => {
+    const userLogin = await Users.findOne({ where: { email, password } });
+
+    return userLogin;
+};
+
 module.exports = {
     createNewUser,
     emailExists,
+    login,
 };
