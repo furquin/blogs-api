@@ -1,10 +1,11 @@
 const express = require('express');
-const { createNewUser, getAllUsers } = require('../controllers/User');
+const { createNewUser, getAllUsers, getUserById } = require('../controllers/User');
 const {
     validDisplayName,
     validEmail,
     checkEmailExists,
     validPassword,
+    userIdExists,
 } = require('../middlewares/validateUser');
 
 const { validToken } = require('../middlewares/validateToken');
@@ -15,5 +16,9 @@ routes
     .route('/')
     .post(validDisplayName, validEmail, validPassword, checkEmailExists, createNewUser)
     .get(validToken, getAllUsers);
+
+routes
+    .route('/:id')
+    .get(userIdExists, validToken, getUserById);
 
 module.exports = routes;
