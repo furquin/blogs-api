@@ -1,4 +1,5 @@
 const { getCategoriesById } = require('../services/categories');
+const { getByIdPost } = require('../services/posts');
 
 const validPost = (req, res, next) => {
     const { title, content } = req.body;
@@ -36,7 +37,24 @@ const validCategory = async (req, res, next) => {
     }
 };
 
+const postExits = async (req, res, next) => {
+   const { id } = req.params;
+    
+    try {
+        const post = await getByIdPost(id);
+        
+        if (!post) {
+            return res.status(404).json({ message: 'Post does not exist' });
+        }
+
+    next();
+} catch (e) {
+    next(e);
+}
+};
+
 module.exports = {
     validPost,
     validCategory,
+    postExits,
 };
