@@ -1,5 +1,10 @@
 const express = require('express');
-const { createNewUser, getAllUsers, getUserById } = require('../controllers/user');
+const {
+    createNewUser,
+    getAllUsers,
+    getUserById,
+    deleteCurrentUser,
+} = require('../controllers/user');
 const {
     validDisplayName,
     validEmail,
@@ -20,5 +25,9 @@ routes
 routes
     .route('/:id')
     .get(userIdExists, validToken, getUserById);
+
+routes
+    .route('/me')
+    .delete(validToken, deleteCurrentUser);
 
 module.exports = routes;

@@ -20,7 +20,7 @@ const createNewUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
     const { email, password } = req.body;
-    const payload = { isAdmin: false };
+    const payload = { isAdmin: false, email };
 
     try {
         await serviceUser.login(email, password);
@@ -54,9 +54,22 @@ const getUserById = async (req, res, next) => {
     }
 };
 
+const deleteCurrentUser = async (req, res, next) => {
+    const { authorization } = req.headers;
+    const { email } = jwt.decode(authorization);
+    try {
+        await serviceUser.deleteCurrentUser(email);
+        
+        return res.status(204).end();
+    } catch (e) {
+        next(e);
+    }
+};
+
 module.exports = {
     createNewUser,
     login,
     getAllUsers,
     getUserById,
+    deleteCurrentUser,
 };
