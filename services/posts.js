@@ -1,13 +1,13 @@
 const { BlogPosts, Users, Categories } = require('../models');
 
-const createNewPost = async (title, categoryIds, content) => {
-    await BlogPosts.create({ title, categoryIds, content });
+const createNewPost = async (userId, title, categoryIds, content) => {
+    const { dataValues: { id } } = await BlogPosts.create({ userId, title, categoryIds, content });
 
     const newPost = await BlogPosts.findAll({
-        where: { title },
+        where: { id },
         attributes: { exclude: ['published', 'updated'] },
     });
-    
+
     return newPost;
 };
 
@@ -33,8 +33,30 @@ const getByIdPost = async (id) => {
     return postById;
 };
 
+const updatePost = async (id, title, content) => {
+    const updatedPost = await BlogPosts
+        .findByPk(id, {
+            attributes: { exclude: ['published', 'updated'] },
+            include: [
+            { model: Categories, as: 'categories', through: { attributes: [] } },
+        ] },
+        {
+        
+    });
+
+    await updatedPost.update({ title, content });
+
+    return updatedPost;
+};
+
+const deletePost = async (id) => {
+    await BlogPosts.destroy({ where: { id } });
+};
+
 module.exports = {
     createNewPost,
     getAllPosts,
     getByIdPost,
+    updatePost,
+    deletePost,
 };

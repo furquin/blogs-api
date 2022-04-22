@@ -1,7 +1,19 @@
 const express = require('express');
 const { validToken } = require('../middlewares/validateToken');
-const { createNewPost, getAllPosts, getByIdPost } = require('../controllers/posts');
-const { validPost, validCategory, postExits } = require('../middlewares/validatePost');
+const {
+    createNewPost,
+    getAllPosts,
+    getByIdPost,
+    updatePost,
+    deletePost,
+} = require('../controllers/posts');
+const {
+    validPost,
+    validCategory,
+    postExits,
+    validUpdate,
+    validUser,
+} = require('../middlewares/validatePost');
 
 const routes = express.Router();
 
@@ -12,6 +24,8 @@ routes
 
 routes
     .route('/:id')
-    .get(validToken, postExits, getByIdPost);
+    .get(validToken, postExits, getByIdPost)
+    .put(validToken, validPost, validUpdate, validUser, updatePost)
+    .delete(validToken, postExits, validUser, deletePost);
     
 module.exports = routes;
