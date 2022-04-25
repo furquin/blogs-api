@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const jwtConfig = require('../config/jtwConfig');
+const jwtConfig = require('../config/jwtConfig');
 require('dotenv').config();
 
 const validToken = (req, res, next) => {
@@ -9,7 +9,7 @@ const validToken = (req, res, next) => {
             return res.status(401).json({ message: 'Token not found' });
         }
 
-        jwt.verify(authorization, process.env.JTW_SECRET, jwtConfig);
+        jwt.verify(authorization, process.env.JWT_SECRET, jwtConfig);
 
         next();
     } catch (e) {
