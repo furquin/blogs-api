@@ -9,7 +9,7 @@ const validToken = (req, res, next) => {
             return res.status(401).json({ message: 'Token not found' });
         }
 
-        jwt.verify(authorization, process.env.SEGREDO, jwtConfig);
+        jwt.verify(authorization, process.env.JTW_SECRET, jwtConfig);
 
         next();
     } catch (e) {

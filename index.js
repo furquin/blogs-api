@@ -16,8 +16,8 @@ app.use('/categories', routerCategories);
 app.use('/post', routerPost);
 app.use(error);
 
-app.listen(process.env.PORT, () => console.log(`ouvindo porta ${process.env.PORT} !`));
-
 app.get('/', (request, response) => {
   response.send();
 });
+
+app.listen(process.env.PORT, () => console.log(`ouvindo porta ${process.env.PORT} !`));
