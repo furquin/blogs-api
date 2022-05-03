@@ -8,7 +8,11 @@
 
 
 <div align="center"> 
+<<<<<<< HEAD
     <img width="600px" height="300px" align="center"src="./README/VerificacaoToken.gif">
+=======
+    <img width="600px" height="300px" align="center"src="./README/VerificacaoTolken.gif">
+>>>>>>> 3525043c1d09c3526e0dbf7692c301c1a79c5cc2
 </div>
 
 <br>
