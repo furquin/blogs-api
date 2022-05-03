@@ -50,8 +50,7 @@
 ```bash
     # Clonar repositório
 
-    $ git clone github.com/furquin/blogs-api
-
+    $ git clone git@github.com:furquin/blogs-api.git
     # Entrar no diretório
 
     $ cd blogs-api
