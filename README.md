@@ -1,5 +1,5 @@
 <div align="center"> 
-    <img width="600px" height="300px" align="center"src="./README/VerificacaoPost.gif">
+    <img width="920px" height="500px" align="center"src="./README/VerificacaoPost.gif">
 </div>
 
 <br>
@@ -8,7 +8,7 @@
 
 
 <div align="center"> 
-    <img width="600px" height="300px" align="center"src="./README/VerificacaoToken.gif">
+    <img width="920px" height="500px" align="center"src="./README/VerificacaoToken.gif">
 </div>
 
 <br>
